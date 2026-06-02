@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 310" width="400" height="310">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#f7f2e8"/>
+      <stop offset="100%" stop-color="#ede5d0"/>
+    </linearGradient>
+    <linearGradient id="facadeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#1d6878"/>
+      <stop offset="100%" stop-color="#0d3d4c"/>
+    </linearGradient>
+    <linearGradient id="zincGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#4a5c6e"/>
+      <stop offset="100%" stop-color="#2e3d4e"/>
+    </linearGradient>
+    <linearGradient id="balconRed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#d42010"/>
+      <stop offset="100%" stop-color="#8a1008"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#5aabdc" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#5aabdc" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="9" flood-color="#0d3d4c" flood-opacity="0.28"/>
+    </filter>
+    <filter id="shadowRed" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#8a0808" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- FOND -->
+  <rect width="400" height="310" fill="url(#bgGrad)" rx="22"/>
+  <rect x="2" y="2" width="396" height="306" fill="none" stroke="#d8ceb4" stroke-width="1.5" rx="21"/>
+
+  <!-- Bandes couleur gauche -->
+  <rect x="22" y="36"  width="10" height="50" fill="#1a6070" rx="5" opacity="0.9"/>
+  <rect x="22" y="92"  width="10" height="50" fill="#f5c820" rx="5" opacity="0.9"/>
+  <rect x="22" y="148" width="10" height="50" fill="#b5261c" rx="5" opacity="0.9"/>
+  <rect x="22" y="204" width="10" height="50" fill="#5aabdc" rx="5" opacity="0.9"/>
+
+  <!-- Points palette droite -->
+  <circle cx="368" cy="66"  r="10" fill="#1a6070" opacity="0.85"/>
+  <circle cx="368" cy="94"  r="10" fill="#f5c820" opacity="0.85"/>
+  <circle cx="368" cy="122" r="10" fill="#b5261c" opacity="0.85"/>
+  <circle cx="368" cy="150" r="10" fill="#6a7588" opacity="0.85"/>
+  <circle cx="368" cy="178" r="10" fill="#5aabdc" opacity="0.85"/>
+
+  <!-- Halo -->
+  <ellipse cx="200" cy="130" rx="110" ry="100" fill="url(#halo)"/>
+
+  <!-- ══ IMMEUBLE ══ -->
+  <g filter="url(#shadow)">
+
+    <!-- Toiture zinc arrondie -->
+    <path d="M116,70 L116,54 Q148,26 200,22 Q252,26 284,54 L284,70 Z" fill="url(#zincGrad)"/>
+    <path d="M118,66 Q148,40 200,36 Q252,40 282,66" stroke="#3a4a5a" stroke-width="1" fill="none" opacity="0.5"/>
+    <path d="M119,62 Q148,34 200,30 Q252,34 281,62" stroke="#3a4a5a" stroke-width="0.8" fill="none" opacity="0.3"/>
+
+    <!-- Lucarnes -->
+    <rect x="144" y="38" width="22" height="18" rx="3 3 0 0" fill="#1d6878"/>
+    <rect x="146" y="40" width="18" height="14" rx="2" fill="#5aabdc" opacity="0.6"/>
+    <line x1="155" y1="40" x2="155" y2="54" stroke="#3a8bbf" stroke-width="1" opacity="0.5"/>
+
+    <rect x="189" y="31" width="22" height="18" rx="3 3 0 0" fill="#1d6878"/>
+    <rect x="191" y="33" width="18" height="14" rx="2" fill="#5aabdc" opacity="0.6"/>
+    <line x1="200" y1="33" x2="200" y2="47" stroke="#3a8bbf" stroke-width="1" opacity="0.5"/>
+
+    <rect x="234" y="38" width="22" height="18" rx="3 3 0 0" fill="#1d6878"/>
+    <rect x="236" y="40" width="18" height="14" rx="2" fill="#5aabdc" opacity="0.6"/>
+    <line x1="245" y1="40" x2="245" y2="54" stroke="#3a8bbf" stroke-width="1" opacity="0.5"/>
+
+    <!-- Corniche -->
+    <rect x="110" y="68" width="180" height="10" fill="#1e3a5f"/>
+    <rect x="113" y="71" width="174" height="4" fill="#2a5080" opacity="0.4"/>
+
+    <!-- Façade (étendue) -->
+    <rect x="116" y="78" width="168" height="158" fill="url(#facadeGrad)"/>
+
+    <!-- ═══ ÉTAGE 2 — LES 3 TABLEAUX (y 86–116) ═══ -->
+
+    <!-- Tableau gauche — JAUNE -->
+    <rect x="125" y="86" width="40" height="30" rx="4" fill="#f5c820"/>
+    <rect x="125" y="86" width="40" height="30" rx="4" fill="none" stroke="#c88010" stroke-width="2"/>
+    <path d="M130,97 Q145,90 159,100"   stroke="#1a6070" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M130,103 Q143,99 159,105"  stroke="#b5261c" stroke-width="2"   fill="none" stroke-linecap="round"/>
+    <path d="M130,109 Q147,106 159,111" stroke="#1e3a5f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+    <!-- Tableau centre — BLEU CIEL -->
+    <rect x="180" y="86" width="40" height="30" rx="4" fill="#5aabdc"/>
+    <rect x="180" y="86" width="40" height="30" rx="4" fill="none" stroke="#3a8bbf" stroke-width="2"/>
+    <circle cx="200" cy="101" r="9"   fill="none" stroke="#faf8f4" stroke-width="2"/>
+    <circle cx="200" cy="101" r="3.5" fill="#f5c820"/>
+    <line   x1="184" y1="112" x2="216" y2="89" stroke="#1e3a5f" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- Tableau droit — ROUGE -->
+    <rect x="235" y="86" width="40" height="30" rx="4" fill="#b5261c"/>
+    <rect x="235" y="86" width="40" height="30" rx="4" fill="none" stroke="#8a1010" stroke-width="2"/>
+    <path d="M240,97 Q255,90 269,100"   stroke="#f5c820" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M240,103 Q252,99 269,105"  stroke="#faf8f4" stroke-width="2"   fill="none" stroke-linecap="round"/>
+    <path d="M240,109 Q257,106 269,111" stroke="#5aabdc" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+    <!-- Liston séparation étages -->
+    <rect x="110" y="118" width="180" height="5" fill="#0d3d4c"/>
+
+    <!-- ═══ ÉTAGE 1 — PORTES-FENÊTRES (y 123–182) ═══ -->
+
+    <!-- Porte-fenêtre gauche -->
+    <rect x="124" y="123" width="42" height="59" rx="0" fill="#2a6888" opacity="0.85"/>
+    <path d="M124,136 A21,13 0 0,1 166,136 L166,123 L124,123 Z" fill="#3a88aa" opacity="0.9"/>
+    <path d="M124,136 A21,13 0 0,1 166,136" fill="none" stroke="#d0e8f4" stroke-width="1.5"/>
+    <rect x="124" y="123" width="42" height="59" rx="2 2 0 0" fill="none" stroke="#d0e8f4" stroke-width="2"/>
+    <line x1="145" y1="123" x2="145" y2="182" stroke="#d0e8f4" stroke-width="1.5"/>
+    <line x1="124" y1="155" x2="166" y2="155" stroke="#d0e8f4" stroke-width="1"/>
+    <rect x="126" y="137" width="17" height="16" fill="rgba(255,255,255,0.10)" rx="1"/>
+    <rect x="147" y="137" width="17" height="16" fill="rgba(255,255,255,0.07)" rx="1"/>
+
+    <!-- Porte-fenêtre centrale -->
+    <rect x="179" y="123" width="42" height="59" rx="0" fill="#2a6888" opacity="0.85"/>
+    <path d="M179,136 A21,13 0 0,1 221,136 L221,123 L179,123 Z" fill="#3a88aa" opacity="0.9"/>
+    <path d="M179,136 A21,13 0 0,1 221,136" fill="none" stroke="#d0e8f4" stroke-width="1.5"/>
+    <rect x="179" y="123" width="42" height="59" rx="2 2 0 0" fill="none" stroke="#d0e8f4" stroke-width="2"/>
+    <line x1="200" y1="123" x2="200" y2="182" stroke="#d0e8f4" stroke-width="1.5"/>
+    <line x1="179" y1="155" x2="221" y2="155" stroke="#d0e8f4" stroke-width="1"/>
+    <rect x="181" y="137" width="17" height="16" fill="rgba(255,255,255,0.10)" rx="1"/>
+    <rect x="202" y="137" width="17" height="16" fill="rgba(255,255,255,0.07)" rx="1"/>
+
+    <!-- Porte-fenêtre droite -->
+    <rect x="234" y="123" width="42" height="59" rx="0" fill="#2a6888" opacity="0.85"/>
+    <path d="M234,136 A21,13 0 0,1 276,136 L276,123 L234,123 Z" fill="#3a88aa" opacity="0.9"/>
+    <path d="M234,136 A21,13 0 0,1 276,136" fill="none" stroke="#d0e8f4" stroke-width="1.5"/>
+    <rect x="234" y="123" width="42" height="59" rx="2 2 0 0" fill="none" stroke="#d0e8f4" stroke-width="2"/>
+    <line x1="255" y1="123" x2="255" y2="182" stroke="#d0e8f4" stroke-width="1.5"/>
+    <line x1="234" y1="155" x2="276" y2="155" stroke="#d0e8f4" stroke-width="1"/>
+    <rect x="236" y="137" width="17" height="16" fill="rgba(255,255,255,0.10)" rx="1"/>
+    <rect x="257" y="137" width="17" height="16" fill="rgba(255,255,255,0.07)" rx="1"/>
+
+    <!-- ═══ BALCON TRAVERSANT ROUGE (plus haut) ═══ -->
+    <g filter="url(#shadowRed)">
+      <!-- Rampe supérieure rouge -->
+      <rect x="104" y="162" width="192" height="7" fill="url(#balconRed)" rx="3"/>
+      <!-- Balusters rouges (hauteur doublée) -->
+      <line x1="116" y1="169" x2="116" y2="197" stroke="#c01808" stroke-width="2.5"/>
+      <line x1="130" y1="169" x2="130" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="144" y1="169" x2="144" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="158" y1="169" x2="158" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="172" y1="169" x2="172" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="186" y1="169" x2="186" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="200" y1="169" x2="200" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="214" y1="169" x2="214" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="228" y1="169" x2="228" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="242" y1="169" x2="242" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="256" y1="169" x2="256" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="270" y1="169" x2="270" y2="197" stroke="#b81408" stroke-width="2"/>
+      <line x1="284" y1="169" x2="284" y2="197" stroke="#c01808" stroke-width="2.5"/>
+      <!-- Dalle rouge (plus épaisse) -->
+      <rect x="104" y="197" width="192" height="14" fill="url(#balconRed)" rx="3"/>
+      <!-- Reflet sur la dalle -->
+      <rect x="106" y="198" width="188" height="4" fill="rgba(255,120,100,0.22)" rx="1"/>
+      <!-- Ombre sous la dalle -->
+      <rect x="106" y="211" width="188" height="5" fill="#5a0808" opacity="0.32" rx="1"/>
+    </g>
+
+    <!-- ═══ REZ-DE-CHAUSSÉE ═══ -->
+    <rect x="110" y="216" width="180" height="5" fill="#0d3d4c"/>
+    <rect x="116" y="221" width="168" height="15" fill="#0d3d4c" opacity="0.85"/>
+
+    <!-- Vitrines RdC (sans porte) -->
+    <rect x="120" y="222" width="72" height="13" rx="1" fill="#1a3a50" opacity="0.9"/>
+    <rect x="208" y="222" width="72" height="13" rx="1" fill="#1a3a50" opacity="0.9"/>
+    <rect x="122" y="223" width="68" height="9"  rx="1" fill="#f5c820" opacity="0.08"/>
+    <rect x="210" y="223" width="68" height="9"  rx="1" fill="#f5c820" opacity="0.08"/>
+
+    <!-- Marches + socle -->
+    <rect x="173" y="234" width="54" height="4" fill="#d8c8a4" rx="1"/>
+    <rect x="116" y="234" width="168" height="5" fill="#162a44"/>
+
+  </g>
+
+  <!-- Coups de pinceau décoratifs -->
+  <path d="M76,244 Q200,234 324,244" stroke="#1a6070" stroke-width="3"   fill="none" stroke-linecap="round" opacity="0.28"/>
+  <path d="M86,249 Q200,240 314,249" stroke="#f5c820" stroke-width="2"   fill="none" stroke-linecap="round" opacity="0.36"/>
+  <path d="M96,253 Q200,245 304,253" stroke="#b5261c" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.22"/>
+
+  <!-- TYPOGRAPHIE -->
+  <text x="200" y="275"
+        text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="42" font-weight="900" letter-spacing="-1"
+        fill="#1e3a5f">Artist<tspan fill="#b5261c">Memory</tspan></text>
+
+  <text x="200" y="295"
+        text-anchor="middle"
+        font-family="'Segoe UI', Arial, sans-serif"
+        font-size="11" font-weight="500" letter-spacing="5"
+        fill="#6a7588">APPARTEMENT-MUSÉE · PARIS</text>
+
+  <line x1="50"  y1="279" x2="100" y2="279" stroke="#c88010" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+  <line x1="300" y1="279" x2="350" y2="279" stroke="#c88010" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+
+</svg>
