@@ -14,7 +14,7 @@
 <meta name="ICBM" content="48.6239, 2.4286">
 <meta property="og:title" content="ArtistMemory — Appartement-Musée aux Portes de Paris">
 <meta property="og:description" content="160 m² baignés d'art abstrait. 4 chambres · Atelier d'Alys · ~40 œuvres originales · Balcon traversant · Parking. Réservez directement et économisez 10% vs Airbnb.">
-<meta property="og:image" content="Logo%20officiel%20ArtistMemory.png">
+<meta property="og:image" content="https://artistmemory.com/logo-artistmemory.png">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
@@ -61,7 +61,7 @@
 }
 </script>
 <meta property="og:url" content="https://artistmemory.com">
-<link rel="preload" as="image" href="Logo%20officiel%20ArtistMemory.png">
+<link rel="preload" as="image" href="logo-artistmemory.png">
 <link rel="preconnect" href="https://calendar.google.com">
 <link rel="dns-prefetch" href="https://buy.stripe.com">
 <style>
@@ -1036,7 +1036,7 @@ body {
   <div class="hero-stars"></div>
   <div class="logo-row">
     <div class="logo-badge">
-      <img src="Logo officiel ArtistMemory.png" alt="ArtistMemory — Appartement-Musée aux Portes de Paris" width="155" height="155" fetchpriority="high" decoding="async">
+      <img src="logo-artistmemory.png" alt="ArtistMemory — Appartement-Musée aux Portes de Paris" width="155" height="155" fetchpriority="high" decoding="async">
     </div>
     <div class="logo-badge" style="display:none">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 310" class="logo-svg" aria-label="ArtistMemory logo">
@@ -1179,18 +1179,18 @@ body {
   <a href="#sec-art">🖼️ Art</a>
   <a href="#sec-paris">📍 Paris</a>
   <a href="#sec-pratique">⚙️ Pratique</a>
-  <button class="nav-book" onclick="open('reservation')">📅 Réserver</button>
+  <button class="nav-book" onclick="openModal('reservation')">📅 Réserver</button>
 </div>
 
 <!-- ============================================================
      PHOTO STRIP — 5 aperçus de l'appartement
      ============================================================ -->
 <div class="photo-strip">
-  <img class="photo-strip-img" src="Appartement/Sejour/IMG_3966.JPG"   alt="Séjour ArtistMemory 160m²"        width="220" height="120" loading="eager" decoding="async" onclick="open('sejour')">
-  <img class="photo-strip-img" src="Appartement/Chambre/IMG_3965.JPG"  alt="Chambre climatisée ArtistMemory"  width="220" height="120" loading="lazy"  decoding="async" onclick="open('chambres')">
-  <img class="photo-strip-img" src="Appartement/Atelier/IMG_3962.JPG"  alt="Atelier artistique Alys"          width="220" height="120" loading="lazy"  decoding="async" onclick="open('atelier')">
-  <img class="photo-strip-img" src="Appartement/Balcon/IMG_3963.JPG"   alt="Balcon traversant ArtistMemory"   width="220" height="120" loading="lazy"  decoding="async" onclick="open('balcon')">
-  <img class="photo-strip-img" src="Appartement/Cuisine/IMG_3971.JPG"  alt="Cuisine équipée ArtistMemory"     width="220" height="120" loading="lazy"  decoding="async" onclick="open('cuisine')">
+  <img class="photo-strip-img" src="Appartement/Sejour/IMG_3966.JPG"   alt="Séjour ArtistMemory 160m²"        width="220" height="120" loading="eager" decoding="async" onclick="openModal('sejour')">
+  <img class="photo-strip-img" src="Appartement/Chambre/IMG_3965.JPG"  alt="Chambre climatisée ArtistMemory"  width="220" height="120" loading="lazy"  decoding="async" onclick="openModal('chambres')">
+  <img class="photo-strip-img" src="Appartement/Atelier/IMG_3962.JPG"  alt="Atelier artistique Alys"          width="220" height="120" loading="lazy"  decoding="async" onclick="openModal('atelier')">
+  <img class="photo-strip-img" src="Appartement/Balcon/IMG_3963.JPG"   alt="Balcon traversant ArtistMemory"   width="220" height="120" loading="lazy"  decoding="async" onclick="openModal('balcon')">
+  <img class="photo-strip-img" src="Appartement/Cuisine/IMG_3971.JPG"  alt="Cuisine équipée ArtistMemory"     width="220" height="120" loading="lazy"  decoding="async" onclick="openModal('cuisine')">
 </div>
 
 <!-- ============================================================
@@ -1221,7 +1221,7 @@ body {
 
   <!-- ── RÉSERVATION CTA ── -->
   <div style="margin-bottom:0.5rem;">
-    <div class="tile tile-book" onclick="open('reservation')">
+    <div class="tile tile-book" onclick="openModal('reservation')">
       <span style="font-size:2.6rem; z-index:1;">📅</span>
       <div style="z-index:1; text-align:left;">
         <div class="tile-title">RÉSERVER VOTRE SÉJOUR</div>
@@ -1244,42 +1244,42 @@ body {
   </svg>
   <div class="sec-label" id="sec-appart"><span class="stroke">🏠 L'Appartement — Visiter les espaces</span></div>
   <div class="grid" id="grAppart">
-    <div id="t-sejour"     class="tile cn"  data-sec="appart" onclick="open('sejour')">
+    <div id="t-sejour"     class="tile cn"  data-sec="appart" onclick="openModal('sejour')">
       <span class="tile-icon">🛋️</span>
       <span class="tile-title">Double Séjour</span>
       <span class="tile-sub">2 canapés convertibles</span>
     </div>
-    <div id="t-chambres"   class="tile cn2" data-sec="appart" onclick="open('chambres')">
+    <div id="t-chambres"   class="tile cn2" data-sec="appart" onclick="openModal('chambres')">
       <span class="tile-icon">🛏️</span>
       <span class="tile-title">Chambres</span>
       <span class="tile-sub">4 chambres climatisées</span>
     </div>
-    <div id="t-cuisine"    class="tile cn"  data-sec="appart" onclick="open('cuisine')">
+    <div id="t-cuisine"    class="tile cn"  data-sec="appart" onclick="openModal('cuisine')">
       <span class="tile-icon">🍳</span>
       <span class="tile-title">Cuisine</span>
       <span class="tile-sub">Entièrement équipée</span>
     </div>
-    <div id="t-sallesbains" class="tile cn2" data-sec="appart" onclick="open('sallesbains')">
+    <div id="t-sallesbains" class="tile cn2" data-sec="appart" onclick="openModal('sallesbains')">
       <span class="tile-icon">🚿</span>
       <span class="tile-title">Salles de Bains</span>
       <span class="tile-sub">2 salles de bains</span>
     </div>
-    <div id="t-atelier"    class="tile cn"  data-sec="appart" onclick="open('atelier')">
+    <div id="t-atelier"    class="tile cn"  data-sec="appart" onclick="openModal('atelier')">
       <span class="tile-icon">🎨</span>
       <span class="tile-title">Atelier Créatif</span>
       <span class="tile-sub">L'espace d'Alys</span>
     </div>
-    <div id="t-balcon"     class="tile cn2" data-sec="appart" onclick="open('balcon')">
+    <div id="t-balcon"     class="tile cn2" data-sec="appart" onclick="openModal('balcon')">
       <span class="tile-icon">🌿</span>
       <span class="tile-title">Balcon Traversant</span>
       <span class="tile-sub">Lumineux & spacieux</span>
     </div>
-    <div id="t-entree"     class="tile cn"  data-sec="appart" onclick="open('entree')">
+    <div id="t-entree"     class="tile cn"  data-sec="appart" onclick="openModal('entree')">
       <span class="tile-icon">🚪</span>
       <span class="tile-title">Entrée & Couloirs</span>
       <span class="tile-sub">Dès le premier pas</span>
     </div>
-    <div id="t-equip"      class="tile cn2" data-sec="appart" onclick="open('equipements')">
+    <div id="t-equip"      class="tile cn2" data-sec="appart" onclick="openModal('equipements')">
       <span class="tile-icon">⚡</span>
       <span class="tile-title">Équipements</span>
       <span class="tile-sub">Clim · Wifi · Parking</span>
@@ -1298,17 +1298,17 @@ body {
   </svg>
   <div class="sec-label" id="sec-art"><span class="stroke">🖼️ Art & Mémoire — L'univers d'Alys</span></div>
   <div class="grid" id="grArt">
-    <div id="t-tableaux" class="tile cr tile-lg" data-sec="art" onclick="open('tableaux')">
+    <div id="t-tableaux" class="tile cr tile-lg" data-sec="art" onclick="openModal('tableaux')">
       <span class="tile-icon">🖼️</span>
       <span class="tile-title">Les Tableaux d'Alys</span>
       <span class="tile-sub">~40 œuvres abstraites originales</span>
     </div>
-    <div id="t-histoire" class="tile cr2" data-sec="art" onclick="open('histoire')">
+    <div id="t-histoire" class="tile cr2" data-sec="art" onclick="openModal('histoire')">
       <span class="tile-icon">📖</span>
       <span class="tile-title">Histoire & Rencontre</span>
       <span class="tile-sub">L'âme d'ArtistMemory</span>
     </div>
-    <div id="t-expo"     class="tile cr"  data-sec="art" onclick="open('expo')">
+    <div id="t-expo"     class="tile cr"  data-sec="art" onclick="openModal('expo')">
       <span class="tile-icon">✨</span>
       <span class="tile-title">Exposer & Créer</span>
       <span class="tile-sub">Résidence artistique</span>
@@ -1327,37 +1327,37 @@ body {
   </svg>
   <div class="sec-label" id="sec-paris"><span class="stroke">🗺️ Paris & Île-de-France — À découvrir</span></div>
   <div class="grid" id="grParis">
-    <div id="t-musees"     class="tile cgr"  data-sec="paris" onclick="open('musees')">
+    <div id="t-musees"     class="tile cgr"  data-sec="paris" onclick="openModal('musees')">
       <span class="tile-icon">🏛️</span>
       <span class="tile-title">Musées & Expos</span>
       <span class="tile-sub">Paris · Île-de-France</span>
     </div>
-    <div id="t-loisirs"   class="tile cgr2" data-sec="paris" onclick="open('loisirs')">
+    <div id="t-loisirs"   class="tile cgr2" data-sec="paris" onclick="openModal('loisirs')">
       <span class="tile-icon">🎭</span>
       <span class="tile-title">Loisirs & Sport</span>
       <span class="tile-sub">Spectacles · Activités</span>
     </div>
-    <div id="t-shopping"  class="tile cgr"  data-sec="paris" onclick="open('shopping')">
+    <div id="t-shopping"  class="tile cgr"  data-sec="paris" onclick="openModal('shopping')">
       <span class="tile-icon">🛍️</span>
       <span class="tile-title">Shopping</span>
       <span class="tile-sub">Marchés · Boutiques</span>
     </div>
-    <div id="t-transports" class="tile cgr2" data-sec="paris" onclick="open('transports')">
+    <div id="t-transports" class="tile cgr2" data-sec="paris" onclick="openModal('transports')">
       <span class="tile-icon">🚇</span>
       <span class="tile-title">Transports</span>
       <span class="tile-sub">Métro · RER · Vélib'</span>
     </div>
-    <div id="t-gastro"    class="tile cgr"  data-sec="paris" onclick="open('gastronomie')">
+    <div id="t-gastro"    class="tile cgr"  data-sec="paris" onclick="openModal('gastronomie')">
       <span class="tile-icon">🍽️</span>
       <span class="tile-title">Gastronomie</span>
       <span class="tile-sub">Restaurants · Bistrots</span>
     </div>
-    <div id="t-nature"    class="tile cgr2" data-sec="paris" onclick="open('nature')">
+    <div id="t-nature"    class="tile cgr2" data-sec="paris" onclick="openModal('nature')">
       <span class="tile-icon">🌳</span>
       <span class="tile-title">Parcs & Nature</span>
       <span class="tile-sub">Bois · Jardins · Forêts</span>
     </div>
-    <div id="t-promos" class="tile" data-sec="paris" onclick="open('promos')" style="background:radial-gradient(ellipse at 38% 32%, #ff6a3a 0%, #c8200a 70%); animation: promo-pulse 2.8s ease-in-out infinite;">
+    <div id="t-promos" class="tile" data-sec="paris" onclick="openModal('promos')" style="background:radial-gradient(ellipse at 38% 32%, #ff6a3a 0%, #c8200a 70%); animation: promo-pulse 2.8s ease-in-out infinite;">
       <span class="tile-icon">🏷️</span>
       <span class="tile-title">Bons Plans Paris</span>
       <span class="tile-sub">Deals · Promos · Sites spécialisés</span>
@@ -1376,32 +1376,32 @@ body {
   </svg>
   <div class="sec-label" id="sec-pratique"><span class="stroke">⚙️ Pratique & Communauté</span></div>
   <div class="grid" id="grPratique">
-    <div id="t-blog"        class="tile cp"  data-sec="pratique" onclick="open('blog')">
+    <div id="t-blog"        class="tile cp"  data-sec="pratique" onclick="openModal('blog')">
       <span class="tile-icon">✍️</span>
       <span class="tile-title">Blog</span>
       <span class="tile-sub">Récits · Inspirations</span>
     </div>
-    <div id="t-avis"        class="tile ct"  data-sec="pratique" onclick="open('avis')">
+    <div id="t-avis"        class="tile ct"  data-sec="pratique" onclick="openModal('avis')">
       <span class="tile-icon">⭐</span>
       <span class="tile-title">Avis Voyageurs</span>
       <span class="tile-sub">Ce qu'ils en disent</span>
     </div>
-    <div id="t-reglement"   class="tile cs"  data-sec="pratique" onclick="open('reglement')">
+    <div id="t-reglement"   class="tile cs"  data-sec="pratique" onclick="openModal('reglement')">
       <span class="tile-icon">📜</span>
       <span class="tile-title">Règlement</span>
       <span class="tile-sub">Règles & bonne vie</span>
     </div>
-    <div id="t-contact"     class="tile ct2" data-sec="pratique" onclick="open('contact')">
+    <div id="t-contact"     class="tile ct2" data-sec="pratique" onclick="openModal('contact')">
       <span class="tile-icon">📞</span>
       <span class="tile-title">Contact</span>
       <span class="tile-sub">Nasser · Questions</span>
     </div>
-    <div id="t-faq"         class="tile cp2" data-sec="pratique" onclick="open('faq')">
+    <div id="t-faq"         class="tile cp2" data-sec="pratique" onclick="openModal('faq')">
       <span class="tile-icon">❓</span>
       <span class="tile-title">FAQ</span>
       <span class="tile-sub">Questions fréquentes</span>
     </div>
-    <div id="t-partenaires" class="tile cs2" data-sec="pratique" onclick="open('partenaires')">
+    <div id="t-partenaires" class="tile cs2" data-sec="pratique" onclick="openModal('partenaires')">
       <span class="tile-icon">🤝</span>
       <span class="tile-title">Services & Partenaires</span>
       <span class="tile-sub">Conciergerie · Extras</span>
@@ -1438,9 +1438,9 @@ body {
         <a href="#sec-art">🖼️ Art & Mémoire</a>
         <a href="#sec-paris">📍 Paris & Sorties</a>
         <a href="#sec-pratique">⚙️ Pratique</a>
-        <a href="javascript:open('reservation')">📅 Réserver directement</a>
-        <a href="javascript:open('contact')">📞 Nous contacter</a>
-        <a href="javascript:open('faq')">❓ FAQ</a>
+        <a href="javascript:openModal('reservation')">📅 Réserver directement</a>
+        <a href="javascript:openModal('contact')">📞 Nous contacter</a>
+        <a href="javascript:openModal('faq')">❓ FAQ</a>
       </div>
       <!-- Col 3 : Plateformes -->
       <div class="footer-col">
@@ -1474,10 +1474,10 @@ body {
 
 <div class="overlay" id="overlay" onclick="closeOverlay(event)">
   <div class="modal" id="mbox">
-    <button class="modal-x" onclick="close()">✕</button>
+    <button class="modal-x" onclick="closeModal()">✕</button>
     <div id="mcontent"></div>
     <div class="modal-footer">
-      <button class="btn-back" onclick="close()">← Retour à l'accueil</button>
+      <button class="btn-back" onclick="closeModal()">← Retour à l'accueil</button>
     </div>
   </div>
 </div>
@@ -1643,7 +1643,7 @@ function setProfile(key) {
     t.classList.add('dimmed');
   });
   p.hi.forEach(id => {
-    const t = document.querySelector(`.tile[onclick="open('${id}')"]`);
+    const t = document.querySelector(`.tile[onclick="openModal('${id}')"]`);
     if (t) { t.classList.remove('dimmed'); t.classList.add('highlight'); }
   });
 
@@ -1773,18 +1773,18 @@ function showQuizResult(key) {
 }
 
 /* ─────────────── MODAL ─────────────── */
-function open(id) {
+function openModal(id) {
   document.getElementById('mcontent').innerHTML = CONTENT[id] || '<p style="color:#999">Contenu à venir…</p>';
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   document.getElementById('mbox').scrollTop = 0;
 }
-function close() {
+function closeModal() {
   document.getElementById('overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-function closeOverlay(e) { if (e.target === document.getElementById('overlay')) close(); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+function closeOverlay(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 /* ─────────────── RESERVATION DIRECTE ─────────────── */
 const TARIFS = { 1:180, 2:180, 3:180, 4:180, 5:200, 6:200, 7:200, 8:200, 9:220, 10:220 };
@@ -2396,7 +2396,7 @@ sejour: `
   <h3>L'art dans le séjour</h3>
   <p>Plus d'une dizaine de tableaux d'Alys ornent les murs. Certains évoquent le Maroc, d'autres ressemblent aux tourbillons de Van Gogh — bleus vibrants, jaunes intenses, lumières presque spirituelles.</p>
   <div class="hl">« Dans cette atmosphère, l'art ne sert pas simplement à embellir les murs. Il devient un langage silencieux entre les êtres, une invitation à ralentir et à redonner du sens au temps vécu. »</div>
-  <button class="cta" onclick="close();open('reservation')">📅 Réserver ce séjour</button>
+  <button class="cta" onclick="closeModal();openModal('reservation')">📅 Réserver ce séjour</button>
 </div>`,
 
 chambres: `
@@ -2423,7 +2423,7 @@ chambres: `
     <span class="chip">🧳 Espace rangement</span>
   </div>
   <p>Chaque chambre a été pensée pour offrir un repos sain et ressourçant, dans une atmosphère baignée par les couleurs et l'énergie des peintures abstraites d'Alys.</p>
-  <button class="cta" onclick="close();open('reservation')">📅 Réserver</button>
+  <button class="cta" onclick="closeModal();openModal('reservation')">📅 Réserver</button>
 </div>`,
 
 cuisine: `
@@ -2494,7 +2494,7 @@ atelier: `
   <p>L'atelier peut devenir un espace magique d'expression artistique pour les enfants. Dessins, peintures, créations libres — un souvenir extraordinaire à rapporter de Paris.</p>
   <h3>Pour les professionnels</h3>
   <p>La lumière naturelle de l'atelier et son atmosphère apaisante en font également un espace de réflexion et de créativité intellectuelle idéal.</p>
-  <button class="cta" onclick="close();open('expo')">✨ En savoir plus sur les résidences</button>
+  <button class="cta" onclick="closeModal();openModal('expo')">✨ En savoir plus sur les résidences</button>
 </div>`,
 
 balcon: `
@@ -2601,7 +2601,7 @@ tableaux: `
     <li>L'abstraction devient un miroir silencieux de votre propre histoire</li>
   </ul>
   <div class="hl">« ArtistMemory se transforme en lieu de transition entre l'extérieur et l'intérieur de soi. Un espace où l'on vient visiter Paris, mais où l'on finit parfois par se rencontrer soi-même. »</div>
-  <button class="cta" onclick="close();open('histoire')">📖 Lire l'histoire complète</button>
+  <button class="cta" onclick="closeModal();openModal('histoire')">📖 Lire l'histoire complète</button>
 </div>`,
 
 histoire: `
@@ -2651,7 +2651,7 @@ expo: `
   <p>Nasser est ouvert à organiser des événements artistiques dans l'appartement. ArtistMemory devient alors un salon artistique vivant, dans la tradition des grands salons parisiens du XIXe siècle.</p>
   <h3>En hommage à Alys</h3>
   <p>Tout artiste qui passe par ArtistMemory perpétue, à sa façon, la mémoire d'Alys. Vous rejoignez une chaîne de transmission artistique qui dépasse les individus et traverse le temps.</p>
-  <button class="cta" onclick="close();open('contact')">📞 Proposer un projet artistique à Nasser</button>
+  <button class="cta" onclick="closeModal();openModal('contact')">📞 Proposer un projet artistique à Nasser</button>
 </div>`,
 
 musees: `
@@ -2879,7 +2879,7 @@ blog: `
     <div class="atitle">✈️ Paris pour artistes — Les adresses secrètes de Nasser</div>
     <div class="aprev">Galeries confidentielles, ateliers ouverts au public, vernissages gratuits, marchés aux puces artistiques — le Paris que les touristes ne voient pas…</div>
   </div>
-  <button class="cta" onclick="close();open('contact')">✉️ Proposer un article ou collaborer avec nous</button>
+  <button class="cta" onclick="closeModal();openModal('contact')">✉️ Proposer un article ou collaborer avec nous</button>
 </div>`,
 
 avis: `
@@ -2923,7 +2923,7 @@ avis: `
     <div class="rorigl">Tokyo, Japon — Touriste</div>
     <div class="rtext">« I came for Paris, I discovered art and myself. The paintings of Alys are extraordinary. And the 160 m² with 4 bedrooms for the price of a Parisian hotel — incredible value. »</div>
   </div>
-  <button class="cta" onclick="close();open('reservation')">📅 Vivre votre propre expérience ArtistMemory</button>
+  <button class="cta" onclick="closeModal();openModal('reservation')">📅 Vivre votre propre expérience ArtistMemory</button>
 </div>`,
 
 reglement: `
@@ -2985,8 +2985,8 @@ reglement: `
     <li>Code à ne pas divulguer — responsabilité du locataire</li>
     <li>Clés perdues : remplacement à la charge du locataire (80 €)</li>
   </ul>
-  <button class="cta" onclick="close();open('reservation')">📄 Réserver et générer le contrat</button>
-  <button class="cta" onclick="close();open('contact')" style="background:linear-gradient(135deg,#4a5568,#2d3748);margin-top:.5rem;">❓ Une question sur le règlement ?</button>
+  <button class="cta" onclick="closeModal();openModal('reservation')">📄 Réserver et générer le contrat</button>
+  <button class="cta" onclick="closeModal();openModal('contact')" style="background:linear-gradient(135deg,#4a5568,#2d3748);margin-top:.5rem;">❓ Une question sur le règlement ?</button>
 </div>`,
 
 contact: `
@@ -3047,7 +3047,7 @@ faq: `
   <div class="hl" style="margin-bottom:.6rem;"><strong>Les tableaux d'Alys sont-ils à vendre ?</strong><br>Certaines œuvres peuvent faire l'objet d'une discussion. Contactez Nasser directement.</div>
   <div class="hl" style="margin-bottom:.6rem;"><strong>Peut-on organiser un événement artistique ?</strong><br>Oui ! Vernissages, ateliers, lectures, concerts privés — Nasser est ouvert à tous les projets.</div>
   <div class="hl"><strong>Peut-on faire une résidence artistique ?</strong><br>Absolument. L'atelier d'Alys est disponible pour les artistes. Contactez Nasser pour en discuter.</div>
-  <button class="cta" onclick="close();open('contact')">📞 Autre question ? Nasser répond sous 24h</button>
+  <button class="cta" onclick="closeModal();openModal('contact')">📞 Autre question ? Nasser répond sous 24h</button>
 </div>`,
 
 promos: `
@@ -3132,7 +3132,7 @@ promos: `
 
   <div class="hl">💡 <strong>Astuce Nasser :</strong> Le <strong>1er dimanche du mois</strong>, les musées nationaux sont gratuits. Combinez avec un séjour à ArtistMemory ce week-end-là pour une immersion culturelle totale à petit prix.</div>
 
-  <button class="cta" onclick="close();open('reservation')">📅 Réserver ArtistMemory pour votre séjour</button>
+  <button class="cta" onclick="closeModal();openModal('reservation')">📅 Réserver ArtistMemory pour votre séjour</button>
 </div>`,
 
 partenaires: `
@@ -3165,7 +3165,7 @@ partenaires: `
     <li>🥂 Organisation de soirées & événements privés</li>
   </ul>
   <div class="hl">Ces services sont optionnels et disponibles en supplément. Contactez Nasser pour organiser votre séjour sur mesure !</div>
-  <button class="cta" onclick="close();open('contact')">📞 Demander ces services à Nasser</button>
+  <button class="cta" onclick="closeModal();openModal('contact')">📞 Demander ces services à Nasser</button>
 </div>`
 
 }; // end CONTENT
