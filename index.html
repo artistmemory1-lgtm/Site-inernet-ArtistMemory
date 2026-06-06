@@ -1013,6 +1013,23 @@ body {
 @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 430px) { .footer-grid { grid-template-columns: 1fr; } }
 
+/* ── COMPTEURS VOYAGEURS ── */
+.guest-counters { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin-bottom:.7rem; }
+.guest-counter-box { background:#f8f5f0; border:1.5px solid #e0d8cc; border-radius:12px; padding:.7rem .9rem; text-align:center; }
+.guest-counter-label { font-size:.78rem; color:#666; font-weight:600; margin-bottom:.5rem; display:block; }
+.guest-counter-label span { font-size:.7rem; color:#aaa; font-weight:400; }
+.guest-counter-row { display:flex; align-items:center; justify-content:center; gap:.7rem; }
+.guest-btn {
+  width:32px; height:32px; border-radius:50%; border:2px solid #c88010;
+  background:#fff; color:#c88010; font-size:1.2rem; font-weight:700;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  transition:background .15s, color .15s; line-height:1;
+}
+.guest-btn:hover { background:#c88010; color:#fff; }
+.guest-btn:disabled { border-color:#ddd; color:#ccc; cursor:not-allowed; background:#fff; }
+.guest-count { font-size:1.4rem; font-weight:800; color:#1e3a5f; min-width:28px; }
+.guest-total-bar { text-align:center; font-size:.83rem; color:#555; margin-bottom:.9rem; padding:.4rem; background:#f0ebe0; border-radius:8px; }
+
 /* ============================================================
    MOBILE — 2 tuiles par ligne
    ============================================================ */
@@ -1787,6 +1804,40 @@ function closeModal() {
 function closeOverlay(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
+/* ─────────────── COMPTEURS VOYAGEURS ─────────────── */
+let _adults = 2, _children = 0;
+
+function changeGuests(type, delta) {
+  const total = _adults + _children;
+  if (type === 'adults') {
+    const next = _adults + delta;
+    if (next < 1 || next + _children > 12) return;
+    _adults = next;
+  } else {
+    const next = _children + delta;
+    if (next < 0 || _adults + next > 12) return;
+    _children = next;
+  }
+  const t = _adults + _children;
+  document.getElementById('rv-adults-val').textContent   = _adults;
+  document.getElementById('rv-children-val').textContent = _children;
+  document.getElementById('rv-guests').value = t;
+
+  // Boutons désactivés aux limites
+  document.getElementById('rv-adults-minus').disabled   = (_adults <= 1);
+  document.getElementById('rv-adults-plus').disabled    = (t >= 12);
+  document.getElementById('rv-children-minus').disabled = (_children <= 0);
+  document.getElementById('rv-children-plus').disabled  = (t >= 12);
+
+  // Barre récap
+  let txt = `👥 Total : <strong>${_adults} adulte${_adults>1?'s':''}</strong>`;
+  if (_children > 0) txt += ` + <strong>${_children} enfant${_children>1?'s':''}</strong>`;
+  txt += ` · Capacité max. 12 personnes`;
+  document.getElementById('rv-guest-total').innerHTML = txt;
+
+  calcResa();
+}
+
 /* ─────────────── TARIFICATION DYNAMIQUE ─────────────── */
 const TARIF_WEEKEND = 500;   // Ven · Sam · Dim
 const TARIF_SEMAINE = 400;   // Lun · Mar · Mer · Jeu
@@ -1840,7 +1891,8 @@ function calcResa() {
     sumEl.style.display = 'none'; errEl.style.display = 'block';
     errEl.textContent = '⚠️ Pour un séjour de plus de 3 mois, contactez Nasser directement.'; return;
   }
-  const guests  = parseInt(gEl.value);
+  const guests   = _adults + _children;  // total pour affichage
+  const adultes  = _adults;              // taxe de séjour adultes uniquement
   const vacances = document.getElementById('rv-vacances')?.checked;
 
   /* Calcul nuit par nuit avec saison + type */
@@ -1859,8 +1911,8 @@ function calcResa() {
   const surcharge = vacances ? Math.round(baseHT * 0.10) : 0;
   baseHT += surcharge;
 
-  /* Taxe de séjour */
-  const taxeSejour = Math.round(guests * nuits * TAXE_SEJOUR_PP * 100) / 100;
+  /* Taxe de séjour — adultes uniquement (enfants exonérés) */
+  const taxeSejour = Math.round(adultes * nuits * TAXE_SEJOUR_PP * 100) / 100;
 
   const remise = 0;
   const total   = baseHT + FRAIS_MENAGE + taxeSejour;
@@ -1881,7 +1933,7 @@ function calcResa() {
   });
   if (surcharge > 0) lines += `<div style="display:flex;justify-content:space-between;color:#e04800;"><span>🏫 Vacances scolaires (+10%)</span><span>+${surcharge} €</span></div>`;
   lines += `<div style="display:flex;justify-content:space-between;margin-top:.2rem;"><span>🧹 Frais de ménage</span><span>${FRAIS_MENAGE} €</span></div>`;
-  lines += `<div style="display:flex;justify-content:space-between;color:#555;font-size:.85em;"><span>🏛️ Taxe de séjour (${guests} pers. × ${nuits} nuits × ${TAXE_SEJOUR_PP} €)</span><span>${taxeSejour.toFixed(2)} €</span></div>`;
+  lines += `<div style="display:flex;justify-content:space-between;color:#555;font-size:.85em;"><span>🏛️ Taxe de séjour (${adultes} adulte${adultes>1?'s':''} × ${nuits} nuits × ${TAXE_SEJOUR_PP} €)<br><em style="font-size:.78em;color:#aaa;">Enfants exonérés — reversée à la mairie</em></span><span>${taxeSejour.toFixed(2)} €</span></div>`;
   lines += `<div style="display:flex;justify-content:space-between;color:#c88010;font-weight:600;margin-top:.3rem;"><span>Acompte 50% dû à la réservation</span><span>${acompte} €</span></div>`;
   document.getElementById('rv-lines').innerHTML = lines;
   document.getElementById('rv-total').textContent = total.toFixed(2) + ' €';
@@ -2285,23 +2337,30 @@ reservation: `
     <div><label style="font-size:.82rem;color:#666;display:block;margin-bottom:.3rem;">Départ</label>
       <input type="date" id="rv-out" onchange="calcResa()" style="width:100%;padding:.55rem .7rem;border:1.5px solid #ddd;border-radius:8px;font-size:.95rem;"></div>
   </div>
-  <div style="margin-bottom:1rem;">
-    <label style="font-size:.82rem;color:#666;display:block;margin-bottom:.3rem;">Nombre de voyageurs</label>
-    <select id="rv-guests" onchange="calcResa()" style="width:100%;padding:.55rem .7rem;border:1.5px solid #ddd;border-radius:8px;font-size:.95rem;">
-      <option value="1">1 voyageur</option>
-      <option value="2" selected>2 voyageurs</option>
-      <option value="3">3 voyageurs</option>
-      <option value="4">4 voyageurs</option>
-      <option value="5">5 voyageurs</option>
-      <option value="6">6 voyageurs</option>
-      <option value="7">7 voyageurs</option>
-      <option value="8">8 voyageurs</option>
-      <option value="9">9 voyageurs</option>
-      <option value="10">10 voyageurs</option>
-      <option value="11">11 voyageurs</option>
-      <option value="12">12 voyageurs</option>
-    </select>
+  <!-- Compteurs Adultes / Enfants -->
+  <div class="guest-counters">
+    <div class="guest-counter-box">
+      <span class="guest-counter-label">👤 Adultes <span>(18 ans et +)</span></span>
+      <div class="guest-counter-row">
+        <button class="guest-btn" id="rv-adults-minus" onclick="changeGuests('adults',-1)">−</button>
+        <span class="guest-count" id="rv-adults-val">2</span>
+        <button class="guest-btn" id="rv-adults-plus"  onclick="changeGuests('adults',+1)">+</button>
+      </div>
+    </div>
+    <div class="guest-counter-box">
+      <span class="guest-counter-label">🧒 Enfants <span>(moins de 18 ans)</span></span>
+      <div class="guest-counter-row">
+        <button class="guest-btn" id="rv-children-minus" onclick="changeGuests('children',-1)">−</button>
+        <span class="guest-count" id="rv-children-val">0</span>
+        <button class="guest-btn" id="rv-children-plus"  onclick="changeGuests('children',+1)">+</button>
+      </div>
+    </div>
   </div>
+  <div class="guest-total-bar" id="rv-guest-total">
+    👥 Total : <strong>2 adultes</strong> · Capacité max. 12 personnes
+  </div>
+  <!-- Champ caché pour la compatibilité JS -->
+  <input type="hidden" id="rv-guests" value="2">
 
   <!-- Vacances scolaires -->
   <div style="margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem;background:#fff8ec;border:1.5px solid #f5c820;border-radius:10px;">
