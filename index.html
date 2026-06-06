@@ -46,6 +46,7 @@
   },
   "priceRange": "€€",
   "numberOfRooms": 4,
+  "occupancy": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 12 },
   "amenityFeature": [
     {"@type": "LocationFeatureSpecification", "name": "WiFi", "value": true},
     {"@type": "LocationFeatureSpecification", "name": "Parking", "value": true},
@@ -1598,8 +1599,8 @@ const PROFILE_CARDS = {
   },
   amis: {
     icon:'🥂', name:'Entre amis / Événement', color:'#c83800',
-    chips:['Séjour 2 canapés convertibles','Cuisine équipée','Grand balcon','Atelier soirée','Salle à manger 10 pers.'],
-    prix:'💰 À partir de 180 €/nuit pour 10 personnes',
+    chips:['Séjour 2 canapés convertibles','Cuisine équipée','Grand balcon','Atelier soirée','Salle à manger 12 pers.'],
+    prix:'💰 À partir de 180 €/nuit pour 10 à 12 personnes',
     itineraire:'🗓️ <em>Soir 1 :</em> Apéro balcon → dîner maison → soirée atelier<br>🗓️ <em>Jour 2 :</em> Shopping → restos Paris → retour festif'
   },
   touriste: {
@@ -1959,7 +1960,7 @@ function generateContract() {
 <table>
   <tr><td>Adresse</td><td>ArtistMemory — aux Portes de Paris (adresse communiquée à la réservation)</td></tr>
   <tr><td>Description</td><td>Appartement meublé 160 m² · 4 chambres · 2 salles de bains · Atelier · Balcon traversant · Parking privé · ~40 œuvres d'art originales</td></tr>
-  <tr><td>Capacité max.</td><td>10 personnes</td></tr>
+  <tr><td>Capacité max.</td><td>10 à 12 personnes</td></tr>
 </table>
 
 <h2>Séjour</h2>
@@ -1986,7 +1987,7 @@ function generateContract() {
   <li>🐾 Animaux de compagnie : accord préalable requis du bailleur</li>
   <li>🔇 Respect des voisins après 22h00 — nuisances sonores interdites</li>
   <li>🎨 Les œuvres d'Alys sont à admirer uniquement — déplacement interdit</li>
-  <li>👥 Capacité maximale : 10 personnes — tout dépassement annule le contrat</li>
+  <li>👥 Capacité maximale : 12 personnes — tout dépassement annule le contrat</li>
   <li>📸 Photos autorisées à des fins personnelles uniquement</li>
   <li>🧹 Appartement rendu propre — en cas contraire, retenue sur caution de 150 €</li>
   <li>❌ Annulation > 30 jours : remboursement intégral · < 30 jours : acompte conservé · < 7 jours : aucun remboursement</li>
@@ -2297,6 +2298,8 @@ reservation: `
       <option value="8">8 voyageurs</option>
       <option value="9">9 voyageurs</option>
       <option value="10">10 voyageurs</option>
+      <option value="11">11 voyageurs</option>
+      <option value="12">12 voyageurs</option>
     </select>
   </div>
 
@@ -2462,7 +2465,7 @@ sejour: `
 chambres: `
 <div class="mh"><span class="mh-ico">🛏️</span><div>
   <div class="mh-title">Les Chambres</div>
-  <div class="mh-sub">4 chambres climatisées — Jusqu'à 10 personnes</div>
+  <div class="mh-sub">4 chambres climatisées — Jusqu'à 12 personnes</div>
 </div></div>
 <div class="mb">
   <p>ArtistMemory dispose de 4 chambres confortables et climatisées. Chacune possède sa propre atmosphère artistique grâce aux œuvres d'Alys qui ornent les murs.</p>
@@ -3017,7 +3020,7 @@ reglement: `
   </ul>
   <h3>👥 Capacité & Événements</h3>
   <ul>
-    <li>Capacité maximale : <strong>10 personnes</strong> (couchages inclus)</li>
+    <li>Capacité maximale : <strong>10 à 12 personnes</strong> (couchages inclus)</li>
     <li>Événements privés : information préalable à Nasser souhaitée</li>
     <li>Parking : 1 véhicule inclus dans le tarif</li>
   </ul>
@@ -3097,7 +3100,7 @@ faq: `
 <div class="mb">
   <h3>🏠 L'appartement</h3>
   <div class="hl" style="margin-bottom:.6rem;"><strong>Où est situé ArtistMemory ?</strong><br>Aux portes de Paris, facilement accessible en métro et RER. Parking privé inclus.</div>
-  <div class="hl" style="margin-bottom:.6rem;"><strong>Combien de personnes peut-on accueillir ?</strong><br>Jusqu'à 10 personnes : 4 chambres + 2 canapés convertibles dans le double séjour.</div>
+  <div class="hl" style="margin-bottom:.6rem;"><strong>Combien de personnes peut-on accueillir ?</strong><br>Jusqu'à 12 personnes : 4 chambres + 2 canapés convertibles dans le double séjour.</div>
   <div class="hl" style="margin-bottom:.6rem;"><strong>Y a-t-il un parking ?</strong><br>Oui, une place de parking privée est incluse dans tous les tarifs — un luxe rare à Paris.</div>
   <div class="hl" style="margin-bottom:.6rem;"><strong>Le Wifi est-il performant ?</strong><br>Connexion fibre très haut débit dans toutes les pièces. Parfait pour le télétravail et le streaming.</div>
   <h3>📅 Réservation</h3>
