@@ -1786,9 +1786,39 @@ function closeModal() {
 function closeOverlay(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-/* ─────────────── RESERVATION DIRECTE ─────────────── */
-const TARIFS = { 1:180, 2:180, 3:180, 4:180, 5:200, 6:200, 7:200, 8:200, 9:220, 10:220 };
-const FRAIS_MENAGE = 80;
+/* ─────────────── TARIFICATION DYNAMIQUE ─────────────── */
+const TARIF_WEEKEND = 500;   // Ven · Sam · Dim
+const TARIF_SEMAINE = 400;   // Lun · Mar · Mer · Jeu
+const FRAIS_MENAGE  = 90;
+const TAXE_SEJOUR_PP = 0.83; // € / pers / nuit — Corbeil-Essonnes
+
+/* Saisons */
+const SAISONS = {
+  haute:   { mois:[7,8],              label:'☀️ Haute saison',   mult:1.20, color:'#e04800' },
+  moyenne: { mois:[4,5,6,9,10],       label:'🌤️ Moyenne saison', mult:1.00, color:'#1a7830' },
+  basse:   { mois:[11,12,1,2,3],      label:'❄️ Basse saison',   mult:0.90, color:'#2563eb' }
+};
+
+/* Jours fériés fixes (MM-JJ) */
+const FERIES = ['01-01','05-01','05-08','07-14','08-15','11-01','11-11','12-25'];
+
+function getSaison(date) {
+  const m = date.getMonth() + 1;
+  if (SAISONS.haute.mois.includes(m))   return SAISONS.haute;
+  if (SAISONS.basse.mois.includes(m))   return SAISONS.basse;
+  return SAISONS.moyenne;
+}
+function isWeekendNight(d) {
+  const j = d.getDay(); return j === 0 || j === 5 || j === 6;
+}
+function isFerie(d) {
+  return FERIES.includes(String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'));
+}
+function getPrixNuit(date) {
+  const weekend = isWeekendNight(date) || isFerie(date);
+  const saison  = getSaison(date);
+  return { prix: Math.round((weekend ? TARIF_WEEKEND : TARIF_SEMAINE) * saison.mult), weekend, saison };
+}
 
 function calcResa() {
   const inEl  = document.getElementById('rv-in');
@@ -1802,36 +1832,58 @@ function calcResa() {
   const d1 = new Date(inEl.value), d2 = new Date(outEl.value);
   const nuits = Math.round((d2 - d1) / 86400000);
   if (nuits < 2) {
-    sumEl.style.display = 'none';
-    errEl.style.display = 'block';
-    errEl.textContent = '⚠️ Durée minimum 2 nuits.';
-    return;
+    sumEl.style.display = 'none'; errEl.style.display = 'block';
+    errEl.textContent = '⚠️ Durée minimum 2 nuits.'; return;
   }
   if (nuits > 90) {
-    sumEl.style.display = 'none';
-    errEl.style.display = 'block';
-    errEl.textContent = '⚠️ Pour un séjour de plus de 3 mois, contactez Nasser directement.';
-    return;
+    sumEl.style.display = 'none'; errEl.style.display = 'block';
+    errEl.textContent = '⚠️ Pour un séjour de plus de 3 mois, contactez Nasser directement.'; return;
   }
-  const guests = parseInt(gEl.value);
-  const pn = TARIFS[guests] || 180;
-  const discount = nuits >= 7 ? 0.10 : 0;
-  const baseHT = pn * nuits;
-  const remise = Math.round(baseHT * discount);
-  const total = baseHT - remise + FRAIS_MENAGE;
+  const guests  = parseInt(gEl.value);
+  const vacances = document.getElementById('rv-vacances')?.checked;
+
+  /* Calcul nuit par nuit avec saison + type */
+  const groupes = {};
+  let baseHT = 0;
+  for (let i = 0; i < nuits; i++) {
+    const night = new Date(d1); night.setDate(night.getDate() + i);
+    const { prix, weekend, saison } = getPrixNuit(night);
+    const key = saison.label + '|' + (weekend ? 'WE' : 'SEM') + '|' + prix;
+    if (!groupes[key]) groupes[key] = { label: saison.label, type: weekend?'🌅 week-end':'📅 semaine', prix, n:0, color: saison.color };
+    groupes[key].n++;
+    baseHT += prix;
+  }
+
+  /* Vacances scolaires +10% */
+  const surcharge = vacances ? Math.round(baseHT * 0.10) : 0;
+  baseHT += surcharge;
+
+  /* Taxe de séjour */
+  const taxeSejour = Math.round(guests * nuits * TAXE_SEJOUR_PP * 100) / 100;
+
+  const remise = 0;
+  const total   = baseHT + FRAIS_MENAGE + taxeSejour;
   const acompte = Math.round(total * 0.5);
 
-  // Prix équivalent plateforme : direct = plateforme × 0.9, frais voyageur Airbnb ~14%
-  const pnPlatform = Math.round(pn / 0.9);
-  const totalPlatform = Math.round(pnPlatform * nuits * (discount > 0 ? 0.9 : 1) * 1.14 + FRAIS_MENAGE);
+  /* Équivalent plateforme */
+  const totalPlatform = Math.round(baseHT / 0.9 * 1.14 + FRAIS_MENAGE);
   const savings = totalPlatform - total;
 
-  let lines = `<div style="display:flex;justify-content:space-between;"><span>${nuits} nuit${nuits>1?'s':''} × ${pn} €</span><span>${baseHT} €</span></div>`;
-  if (remise > 0) lines += `<div style="display:flex;justify-content:space-between;color:#27763a;"><span>🎁 Remise séjour long (−10%)</span><span>−${remise} €</span></div>`;
-  lines += `<div style="display:flex;justify-content:space-between;"><span>Frais de ménage</span><span>${FRAIS_MENAGE} €</span></div>`;
-  lines += `<div style="display:flex;justify-content:space-between;color:#c88010;font-weight:600;"><span>Acompte 50% dû à la réservation</span><span>${acompte} €</span></div>`;
+  let lines = '';
+  /* Lignes par groupe saison/type */
+  Object.values(groupes).forEach(g => {
+    lines += `<div style="display:flex;justify-content:space-between;">
+      <span style="color:${g.color};font-weight:600;">${g.label}</span><span></span></div>`;
+    lines += `<div style="display:flex;justify-content:space-between;padding-left:.8rem;">
+      <span>${g.type} × ${g.n} nuit${g.n>1?'s':''} × ${g.prix} €</span>
+      <span>${g.n * g.prix} €</span></div>`;
+  });
+  if (surcharge > 0) lines += `<div style="display:flex;justify-content:space-between;color:#e04800;"><span>🏫 Vacances scolaires (+10%)</span><span>+${surcharge} €</span></div>`;
+  lines += `<div style="display:flex;justify-content:space-between;margin-top:.2rem;"><span>🧹 Frais de ménage</span><span>${FRAIS_MENAGE} €</span></div>`;
+  lines += `<div style="display:flex;justify-content:space-between;color:#555;font-size:.85em;"><span>🏛️ Taxe de séjour (${guests} pers. × ${nuits} nuits × ${TAXE_SEJOUR_PP} €)</span><span>${taxeSejour.toFixed(2)} €</span></div>`;
+  lines += `<div style="display:flex;justify-content:space-between;color:#c88010;font-weight:600;margin-top:.3rem;"><span>Acompte 50% dû à la réservation</span><span>${acompte} €</span></div>`;
   document.getElementById('rv-lines').innerHTML = lines;
-  document.getElementById('rv-total').textContent = total + ' €';
+  document.getElementById('rv-total').textContent = total.toFixed(2) + ' €';
 
   const savEl = document.getElementById('rv-savings');
   if (savEl) {
@@ -2246,6 +2298,14 @@ reservation: `
       <option value="9">9 voyageurs</option>
       <option value="10">10 voyageurs</option>
     </select>
+  </div>
+
+  <!-- Vacances scolaires -->
+  <div style="margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem;background:#fff8ec;border:1.5px solid #f5c820;border-radius:10px;">
+    <input type="checkbox" id="rv-vacances" onchange="calcResa()" style="width:18px;height:18px;cursor:pointer;accent-color:#e04800;">
+    <label for="rv-vacances" style="font-size:.88rem;font-weight:600;color:#7a3010;cursor:pointer;">
+      🏫 Séjour pendant les vacances scolaires <span style="color:#e04800;font-weight:700;">(+10%)</span>
+    </label>
   </div>
 
   <div id="rv-summary" style="display:none;background:linear-gradient(135deg,#f9f4e8,#fdf8ed);border:1.5px solid #e8d88a;border-radius:12px;padding:1rem 1.2rem;margin-bottom:1rem;">
