@@ -1887,10 +1887,13 @@ function calcResa() {
     sumEl.style.display = 'none'; errEl.style.display = 'block';
     errEl.textContent = '⚠️ Durée minimum 2 nuits.'; return;
   }
-  if (nuits > 90) {
-    sumEl.style.display = 'none'; errEl.style.display = 'block';
-    errEl.textContent = '⚠️ Pour un séjour de plus de 3 mois, contactez Nasser directement.'; return;
+  /* Longue durée → devis */
+  if (nuits >= 7) {
+    sumEl.style.display = 'none'; errEl.style.display = 'none';
+    document.getElementById('rv-devis').style.display = 'block';
+    return;
   }
+  document.getElementById('rv-devis').style.display = 'none';
   const guests   = _adults + _children;  // total pour affichage
   const adultes  = _adults;              // taxe de séjour adultes uniquement
   const vacances = document.getElementById('rv-vacances')?.checked;
@@ -1906,6 +1909,11 @@ function calcResa() {
     groupes[key].n++;
     baseHT += prix;
   }
+
+  /* Remise durée de séjour */
+  const remisePct = nuits === 2 ? 0.10 : nuits >= 3 ? 0.15 : 0;
+  const remiseDuree = remisePct > 0 ? Math.round(baseHT * remisePct) : 0;
+  baseHT -= remiseDuree;
 
   /* Vacances scolaires +10% */
   const surcharge = vacances ? Math.round(baseHT * 0.10) : 0;
@@ -1931,6 +1939,7 @@ function calcResa() {
       <span>${g.type} × ${g.n} nuit${g.n>1?'s':''} × ${g.prix} €</span>
       <span>${g.n * g.prix} €</span></div>`;
   });
+  if (remiseDuree > 0) lines += `<div style="display:flex;justify-content:space-between;color:#27763a;font-weight:600;"><span>🎁 Remise ${nuits === 2 ? '2 nuits (−10%)' : '3+ nuits (−15%)'}</span><span>−${remiseDuree} €</span></div>`;
   if (surcharge > 0) lines += `<div style="display:flex;justify-content:space-between;color:#e04800;"><span>🏫 Vacances scolaires (+10%)</span><span>+${surcharge} €</span></div>`;
   lines += `<div style="display:flex;justify-content:space-between;margin-top:.2rem;"><span>🧹 Frais de ménage</span><span>${FRAIS_MENAGE} €</span></div>`;
   lines += `<div style="display:flex;justify-content:space-between;color:#555;font-size:.85em;"><span>🏛️ Taxe de séjour (${adultes} adulte${adultes>1?'s':''} × ${nuits} nuits × ${TAXE_SEJOUR_PP} €)<br><em style="font-size:.78em;color:#aaa;">Enfants exonérés — reversée à la mairie</em></span><span>${taxeSejour.toFixed(2)} €</span></div>`;
@@ -2383,6 +2392,22 @@ reservation: `
   <div id="rv-savings" style="display:none;background:linear-gradient(135deg,#edfaf2,#d6f5e3);border:1.5px solid #7ed8a4;border-radius:12px;padding:.8rem 1.1rem;margin-bottom:1rem;font-size:.92rem;color:#1a6b3a;font-weight:600;"></div>
 
   <div id="rv-msg-err" style="display:none;color:#c0392b;font-size:.85rem;margin-bottom:.7rem;padding:.5rem .8rem;background:#fef0f0;border-radius:8px;border:1px solid #f5c6cb;"></div>
+
+  <!-- DEVIS LONGUE DURÉE -->
+  <div id="rv-devis" style="display:none;background:linear-gradient(135deg,#f0f4ff,#e8f0fe);border:2px solid #2563eb;border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1rem;text-align:center;">
+    <div style="font-size:1.5rem;margin-bottom:.4rem;">📋</div>
+    <div style="font-weight:800;color:#1a3a78;font-size:1.05rem;margin-bottom:.3rem;">Séjour longue durée (7 nuits et +)</div>
+    <div style="font-size:.88rem;color:#555;margin-bottom:.9rem;">Pour un séjour de 7 nuits ou plus, Nasser vous propose un tarif personnalisé adapté à votre situation.</div>
+    <a href="https://wa.me/33601201787?text=Bonjour%20Nasser%2C%20je%20souhaite%20un%20devis%20pour%20un%20long%20s%C3%A9jour%20%C3%A0%20ArtistMemory."
+       target="_blank"
+       style="display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;padding:.65rem 1.4rem;border-radius:2rem;font-weight:700;font-size:.92rem;text-decoration:none;margin-right:.5rem;">
+      💬 WhatsApp Nasser
+    </a>
+    <a href="mailto:artist.memory1@gmail.com?subject=Demande%20de%20devis%20long%20s%C3%A9jour&body=Bonjour%20Nasser%2C%0A%0AJe%20souhaite%20un%20devis%20pour%20un%20long%20s%C3%A9jour."
+       style="display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#1e3a5f,#2a5280);color:#fff;padding:.65rem 1.4rem;border-radius:2rem;font-weight:700;font-size:.92rem;text-decoration:none;">
+      ✉️ Email
+    </a>
+  </div>
 
   <h3>💳 Mode de règlement direct</h3>
   <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem;justify-content:center;">
