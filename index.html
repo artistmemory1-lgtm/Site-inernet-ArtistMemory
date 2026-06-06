@@ -1896,7 +1896,8 @@ function calcResa() {
   document.getElementById('rv-devis').style.display = 'none';
   const guests   = _adults + _children;  // total pour affichage
   const adultes  = _adults;              // taxe de séjour adultes uniquement
-  const vacances = document.getElementById('rv-vacances')?.checked;
+  const vacances  = document.getElementById('rv-vacances')?.checked;
+  const nonRemb   = document.getElementById('rv-nonremb')?.checked;
 
   /* Calcul nuit par nuit avec saison + type */
   const groupes = {};
@@ -1914,6 +1915,10 @@ function calcResa() {
   const remisePct = nuits === 2 ? 0.10 : nuits >= 3 ? 0.15 : 0;
   const remiseDuree = remisePct > 0 ? Math.round(baseHT * remisePct) : 0;
   baseHT -= remiseDuree;
+
+  /* Réservation non remboursable −10% */
+  const remiseNR = nonRemb ? Math.round(baseHT * 0.10) : 0;
+  baseHT -= remiseNR;
 
   /* Vacances scolaires +10% */
   const surcharge = vacances ? Math.round(baseHT * 0.10) : 0;
@@ -1940,6 +1945,7 @@ function calcResa() {
       <span>${g.n * g.prix} €</span></div>`;
   });
   if (remiseDuree > 0) lines += `<div style="display:flex;justify-content:space-between;color:#27763a;font-weight:600;"><span>🎁 Remise ${nuits === 2 ? '2 nuits (−10%)' : '3+ nuits (−15%)'}</span><span>−${remiseDuree} €</span></div>`;
+  if (remiseNR > 0)   lines += `<div style="display:flex;justify-content:space-between;color:#27763a;font-weight:600;"><span>🔒 Non remboursable (−10%)</span><span>−${remiseNR} €</span></div>`;
   if (surcharge > 0) lines += `<div style="display:flex;justify-content:space-between;color:#e04800;"><span>🏫 Vacances scolaires (+10%)</span><span>+${surcharge} €</span></div>`;
   lines += `<div style="display:flex;justify-content:space-between;margin-top:.2rem;"><span>🧹 Frais de ménage</span><span>${FRAIS_MENAGE} €</span></div>`;
   lines += `<div style="display:flex;justify-content:space-between;color:#555;font-size:.85em;"><span>🏛️ Taxe de séjour (${adultes} adulte${adultes>1?'s':''} × ${nuits} nuits × ${TAXE_SEJOUR_PP} €)<br><em style="font-size:.78em;color:#aaa;">Enfants exonérés — reversée à la mairie</em></span><span>${taxeSejour.toFixed(2)} €</span></div>`;
@@ -2372,10 +2378,19 @@ reservation: `
   <input type="hidden" id="rv-guests" value="2">
 
   <!-- Vacances scolaires -->
-  <div style="margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem;background:#fff8ec;border:1.5px solid #f5c820;border-radius:10px;">
+  <div style="margin-bottom:.6rem;display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem;background:#fff8ec;border:1.5px solid #f5c820;border-radius:10px;">
     <input type="checkbox" id="rv-vacances" onchange="calcResa()" style="width:18px;height:18px;cursor:pointer;accent-color:#e04800;">
     <label for="rv-vacances" style="font-size:.88rem;font-weight:600;color:#7a3010;cursor:pointer;">
       🏫 Séjour pendant les vacances scolaires <span style="color:#e04800;font-weight:700;">(+10%)</span>
+    </label>
+  </div>
+
+  <!-- Non remboursable -->
+  <div style="margin-bottom:1rem;display:flex;align-items:flex-start;gap:.6rem;padding:.7rem 1rem;background:#f0fdf4;border:1.5px solid #27763a;border-radius:10px;">
+    <input type="checkbox" id="rv-nonremb" onchange="calcResa()" style="width:18px;height:18px;cursor:pointer;accent-color:#27763a;margin-top:.1rem;flex-shrink:0;">
+    <label for="rv-nonremb" style="font-size:.88rem;font-weight:600;color:#1a4a28;cursor:pointer;">
+      🔒 Réservation non remboursable <span style="color:#27763a;font-weight:700;">(−10%)</span>
+      <div style="font-size:.75rem;color:#888;font-weight:400;margin-top:.2rem;">⚠️ Aucun remboursement en cas d'annulation — tarif préférentiel garanti</div>
     </label>
   </div>
 
