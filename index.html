@@ -20,6 +20,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ArtistMemory — Appartement-Musée aux Portes de Paris">
 <meta name="twitter:description" content="160 m² d'art et de lumière aux portes de Paris. Réservez en direct et économisez.">
+<!-- Google Analytics 4 — ArtistMemory -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NHM9PQFPFW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NHM9PQFPFW', { send_page_view: true });
+</script>
 <link rel="canonical" href="https://artistmemory.com">
 <script type="application/ld+json">
 {
@@ -1651,6 +1659,8 @@ function setProfile(key) {
   /* ① Boutons actifs */
   document.querySelectorAll('.profile-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`[data-p="${key}"]`).classList.add('active');
+  /* GA4 — profil sélectionné */
+  if (typeof gtag !== 'undefined') gtag('event', 'profile_selected', { profile: key });
 
   /* ② Bannière dynamique */
   document.getElementById('dynBanner').textContent = p.msg;
@@ -2084,6 +2094,11 @@ function generateContract() {
   const w = window.open('', '_blank');
   w.document.write(html);
   w.document.close();
+  /* GA4 — contrat généré */
+  if (typeof gtag !== 'undefined') gtag('event', 'contract_generated', {
+    adults: _adults, children: _children,
+    nights: Math.round((new Date(outEl.value) - new Date(inEl.value)) / 86400000)
+  });
 }
 
 /* ── Langues étrangères ── */
@@ -2304,6 +2319,12 @@ function sendResaRequest() {
     + '💳 Mode de règlement souhaité : ' + (payMode === 'virement' ? 'Virement bancaire (IBAN)' : payMode === 'wero' ? 'Wero — 06 01 20 17 87' : payMode === 'lydia' ? 'Lydia — 06 01 20 17 87' : 'Carte bancaire (Stripe)') + '\n\n'
     + 'Merci de confirmer la disponibilité.\n\nCordialement,'
   );
+  /* GA4 — réservation envoyée */
+  if (typeof gtag !== 'undefined') gtag('event', 'reservation_sent', {
+    adults: _adults, children: _children,
+    nights: Math.round((new Date(outEl.value) - new Date(inEl.value)) / 86400000),
+    total: totEl ? totEl.textContent : '—'
+  });
   window.location.href = 'mailto:artist.memory1@gmail.com?subject=' + subject + '&body=' + body;
 }
 
